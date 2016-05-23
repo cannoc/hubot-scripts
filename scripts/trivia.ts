@@ -364,9 +364,9 @@ module.exports = (robot) => {
 
     robot.hear(/^!taunt-list$/, (resp) => game.tauntList(resp));
 
-    robot.hear(/^!setscore (.*) (.*)/, (resp) => game.setScore(resp, resp.match[1], resp.match[2]));
+//    robot.hear(/^!setscore (.*) (.*)/, (resp) => game.setScore(resp, resp.match[1], resp.match[2]));
 
-    robot.hear(/^!setlifetime (.*) (.*)/, (resp) => game.setLifetime(resp, resp.match[1], resp.match[2]));
+//    robot.hear(/^!setlifetime (.*) (.*)/, (resp) => game.setLifetime(resp, resp.match[1], resp.match[2]));
 
 };
 
