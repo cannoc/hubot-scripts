@@ -304,6 +304,6 @@ module.exports = function (robot) {
     robot.hear(/^!reset$/, function (resp) { return game.resetScores(resp); });
     robot.hear(/^!taunt (.*)/, function (resp) { return game.tauntUser(resp, resp.match[1]); });
     robot.hear(/^!taunt-list$/, function (resp) { return game.tauntList(resp); });
-    robot.hear(/^!setscore (.*) (.*)/, function (resp) { return game.setScore(resp, resp.match[1], resp.match[2]); });
-    robot.hear(/^!setlifetime (.*) (.*)/, function (resp) { return game.setLifetime(resp, resp.match[1], resp.match[2]); });
+    //    robot.hear(/^!setscore (.*) (.*)/, (resp) => game.setScore(resp, resp.match[1], resp.match[2]));
+    //    robot.hear(/^!setlifetime (.*) (.*)/, (resp) => game.setLifetime(resp, resp.match[1], resp.match[2]));
 };
