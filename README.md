@@ -27,7 +27,7 @@ Based on https://github.com/ravikiranj/hubot-trivia-game
 ###Commands:
 
 **!t(rivia)** - Start a game of trivia  
-**!a(nswer)** \<answer\> - Answer the current question  
+**!a(nswer) \<answer\>** - Answer the current question  
 **!sk(ip)** - Skip the current question, start a new round  
 **!end** - End the current round  
 **!score \<user\>** - Show a user's score  
