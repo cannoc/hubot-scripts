@@ -9,6 +9,7 @@
 //
 // Dependencies:
 //   cheerio - for questions with hyperlinks
+//   underscore
 //
 // Configuration:
 //   None
