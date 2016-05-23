@@ -24,7 +24,7 @@ Written in TypeScript, compiled to JS for hubot.
 
 ###Commands:
 
-!t(rivia) - Start a game of trivia
+!t(rivia) - Start a game of trivia  
 !a(nswer) <answer> - Answer the current question
 !sk(ip) - Skip the current question, start a new round
 !end - End the current round
