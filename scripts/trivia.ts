@@ -38,7 +38,7 @@ var Entities = require("entities");
 var AnswerChecker = require("../res/answer-checker");
 var _ = require("underscore");
 
-var insults = ["You moron.", "Do you even know how to trivia?", "FFS that's a stupid answer.", ":fries:", "I give up.", ":fried_shrimp", "Did you fail 3rd grade?", "Dumbass.", "I don't know what your problem is, but I'll bet it's hard to pronounce.", "If ignorance is bliss, you must be the happiest person alive.", "Shouldn't you have a license for being that dumb?", "I'd like to give you a going-away present, first you do your part.", "If your parents get a divorce would they still be brother and sister?", "Your down to earth, but not quite far down enough.", "Sit down, give your mind a rest - it obviously needs it.", "I heard that you changed your mind. So, what did you do with the diaper?", "I don't mind you talking so much, as long as you don't mind me not listening.", "You are not the sharpest knife in the drawer.", "You're so stupid, you sold your car for gas money."];
+var insults = ["You moron.", "Do you even know how to trivia?", "FFS that's a stupid answer.", ":fries:", "I give up.", ":fried_shrimp:", "Did you fail 3rd grade?", "Dumbass.", "I don't know what your problem is, but I'll bet it's hard to pronounce.", "If ignorance is bliss, you must be the happiest person alive.", "Shouldn't you have a license for being that dumb?", "I'd like to give you a going-away present, first you do your part.", "If your parents get a divorce would they still be brother and sister?", "Your down to earth, but not quite far down enough.", "Sit down, give your mind a rest - it obviously needs it.", "I heard that you changed your mind. So, what did you do with the diaper?", "I don't mind you talking so much, as long as you don't mind me not listening.", "You are not the sharpest knife in the drawer.", "You're so stupid, you sold your car for gas money."];
 
 class ScoreKeeper {
   cache: { scores: Object; lifetime: Object; }
@@ -204,6 +204,8 @@ class Game {
             checkGuess = checkGuess.replace(/[\\'"\.,-\/#!$%\^&\*;:{}=\-_`~()\s]/g, "");
 
             checkGuess = checkGuess.replace(/[^a-zA-Z0-9 ]/g, "");
+	    checkGuess = checkGuess.replace(/^(?:(the |a |an ))/g, "");
+
 
             if (AnswerChecker(checkGuess, this.currentQ.validAnswer)) {
                 var value:any = this.currentQ.value.replace(/[^0-9.-]+/g, "");
