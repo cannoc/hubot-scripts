@@ -135,7 +135,7 @@ var Game = (function () {
         var link = question("a").attr("href");
         var text = Entities.decodeHTML(question("span").text());
         return resp.send("---------- :exclamation::new::question::new::exclamation: ----------\n" +
-            ("For " + this.currentQ.value + " in the category of " + this.currentQ.category + ":\n") +
+            ("For " + this.currentQ.value + " in the category of " + this.currentQ.category + " (" + this.currentQ.air_date + "):\n") +
             (text + " ") + (link ? " " + link : ""));
     };
     Game.prototype.skipQuestion = function (resp) {

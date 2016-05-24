@@ -168,7 +168,7 @@ class Game {
         var text = Entities.decodeHTML(question("span").text());
 
         return resp.send("---------- :exclamation::new::question::new::exclamation: ----------\n" +
-          ("For " + this.currentQ.value + " in the category of " + this.currentQ.category + ":\n") +
+          ("For " + this.currentQ.value + " in the category of " + this.currentQ.category + " ("+this.currentQ.air_date +"):\n") +
           (text + " ") + (link ? " " + link : ""));
     }
 
