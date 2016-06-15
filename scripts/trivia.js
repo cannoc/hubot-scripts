@@ -71,18 +71,22 @@ var ScoreKeeper = (function () {
         var tops = [];
         if (!lifetime) {
             for (var name_1 in this.cache.scores) {
-                tops.push({
-                    name: name_1,
-                    score: this.cache.scores[name_1]
-                });
+                if (this.cache.scores[name_1] > 0) {
+                    tops.push({
+                        name: name_1,
+                        score: this.cache.scores[name_1]
+                    });
+                }
             }
         }
         else {
             for (var name_2 in this.cache.lifetime) {
-                tops.push({
-                    name: name_2,
-                    score: this.cache.lifetime[name_2]
-                });
+                if (this.cache.lifetime[name_2] > 0) {
+                    tops.push({
+                        name: name_2,
+                        score: this.cache.lifetime[name_2]
+                    });
+                }
             }
         }
         this.robot.logger.info("Tops: " + JSON.stringify(tops));
@@ -250,7 +254,7 @@ var Game = (function () {
             resp.send(this.robot.brain.data.lastReset);
         }
         if (topscores.length > 0) {
-            _.range(0, topscores.length - 1 + 1).forEach(function (i) { return op.push((i + 1) + ". " + topscores[i].name + ": " + topscores[i].score); });
+            _.range(0, topscores.length - 1 + 1).forEach(function (i) { return op.push((i + 1) + ". " + topscores[i].name + ": " + topscores[i].score.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")); });
             resp.send(op.join("\n"));
         }
         else {

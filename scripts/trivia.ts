@@ -81,17 +81,21 @@ class ScoreKeeper {
         var tops = [];
         if (!lifetime) {
           for (let name in this.cache.scores) {
+            if(this.cache.scores[name] > 0) {
               tops.push({
                   name: name,
                   score: this.cache.scores[name]
               });
+            }
           }
         } else {
           for (let name in this.cache.lifetime) {
+            if(this.cache.lifetime[name] > 0 ) {
               tops.push({
                   name: name,
                   score: this.cache.lifetime[name]
               });
+            }
           }
         }
         this.robot.logger.info("Tops: " + JSON.stringify(tops));
@@ -294,7 +298,7 @@ class Game {
         }
 
         if(topscores.length > 0) {
-          _.range(0, topscores.length - 1 + 1).forEach(function (i) { return op.push((i + 1) + ". " + topscores[i].name + ": " + topscores[i].score); });
+          _.range(0, topscores.length - 1 + 1).forEach(function (i) {return op.push((i + 1) + ". " + topscores[i].name + ": $" + topscores[i].score.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")); });
           resp.send(op.join("\n"));
         } else {
           resp.send("There are no scores to display, you should play some trivia!");
@@ -370,6 +374,5 @@ module.exports = (robot) => {
 //    robot.hear(/^!setscore (.*) (.*)/, (resp) => game.setScore(resp, resp.match[1], resp.match[2]));
 
 //    robot.hear(/^!setlifetime (.*) (.*)/, (resp) => game.setLifetime(resp, resp.match[1], resp.match[2]));
-
 };
 

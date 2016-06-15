@@ -3,3 +3,4 @@ node_modules/*
 res/questions.json
 old/*
 package.json
+scripts/*.coffee
