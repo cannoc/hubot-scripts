@@ -1,3 +1,45 @@
+# Hubot Scripts
+
+A colletion of hubot scripts I've modified over the last while to make my Rocketchat experience more fun! 
+
+### Bitly
+  Some useful utilites for bitly
+### CatFacts
+  Random facts about cats!
+### EarDropping
+  Hubot will do a thing when he hears a phrase.  This one replaced a lot of other scripts.
+### Echo
+  Hubot will say/do what you said, optionally in a different room.
+### EdBalls
+  Ed Balls
+### Encourage
+  Hubot will encourage someone.
+### Flip.js
+  Flip/unflip things
+### Giphyme
+  Hubot will look up a gif from giphy (often times poorly, which makes it fun)
+### Greetings
+  Set custom greetings for hubot to say when you enter a room
+### Help
+  Shows the commands hubot responds to (based on comments in files)
+### Mute
+  Hubot will shut up in a particular channel
+### Pugme
+  Pugs for everyone
+### Quotes
+  Endless fun quote database, supports random quotes
+### Reload
+  Hubot will reload his scripts
+### Reminder
+  Hubot will remind you of something later
+### Sudo
+  Hubot will do whatever you say
+### Trivia
+  A fully blown trivia game with scoreboards
+### XKCD
+  Show an xkcd comic strip
+
+
 # hubot-trivia-game
 
 Written in TypeScript, compiled to JS for hubot.
