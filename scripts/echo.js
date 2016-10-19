@@ -50,10 +50,5 @@ module.exports = function(robot) {
     console.log(msg.message.user);
     return msg.send(msg.match[1]);
   });
-  
-  robot.respond(/roomid (.*)/, function(msg) {
-    robot.adapter.chatdriver.getRoomId(msg.match[1]).then(function (rid) {
-   	return msg.send("The room ID for " + msg.match[1] + " is " + rid);
-    });
-  });
+
 };
