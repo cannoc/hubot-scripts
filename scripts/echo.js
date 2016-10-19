@@ -16,7 +16,7 @@
 module.exports = function(robot) {
   var TextMessage = require('hubot').TextMessage; 
 
-  robot.respond(/echoto @?(.*?) (.*)/i, function(msg) {
+  robot.respond(/echoto (.*?) (.*)/i, function(msg) {
      var room = msg.match[1];
      var text = msg.match[2];
 
@@ -31,7 +31,7 @@ module.exports = function(robot) {
             });     
       });
 
-  robot.respond(/commandto @?(.*?) (.*)/i, function(msg) {
+  robot.respond(/commandto (.*?) (.*)/i, function(msg) {
      var room = msg.match[1];
      var text = msg.match[2];
 
@@ -46,7 +46,7 @@ module.exports = function(robot) {
         });
   });   
 
-  robot.respond(/echo (.*)/, function(msg) {
+  robot.respond(/echo (.*)/i, function(msg) {
     console.log(msg.message.user);
     return msg.send(msg.match[1]);
   });
