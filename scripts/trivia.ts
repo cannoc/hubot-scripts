@@ -23,7 +23,7 @@
 //   !s(cores) - show all player scores
 //   !l(ifetime) - show lifetime scores for all players
 //   !h(int) - hints for trivia question
-//   !top [num] - Top [num] Players (default: 10)
+//   !top (<num>) - Top (num) Players (default: 10)
 //   !reset - resets the score list
 //
 // Author:

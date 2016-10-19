@@ -23,7 +23,7 @@
 //   !s(cores) - show all player scores
 //   !l(ifetime) - show lifetime scores for all players
 //   !h(int) - hints for trivia question
-//   !top [num] - Top [num] Players (default: 10)
+//   !top (<num>) - Top (num) Players (default: 10)
 //   !reset - resets the score list
 //
 // Author:
@@ -254,7 +254,7 @@ var Game = (function () {
             resp.send(this.robot.brain.data.lastReset);
         }
         if (topscores.length > 0) {
-            _.range(0, topscores.length - 1 + 1).forEach(function (i) { return op.push((i + 1) + ". " + topscores[i].name + ": " + topscores[i].score.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")); });
+            _.range(0, topscores.length - 1 + 1).forEach(function (i) { return op.push((i + 1) + ". " + topscores[i].name + ": $" + topscores[i].score.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")); });
             resp.send(op.join("\n"));
         }
         else {
