@@ -4,3 +4,4 @@ res/questions.json
 old/*
 package.json
 scripts/*.coffee
+scripts/plexpy.js
