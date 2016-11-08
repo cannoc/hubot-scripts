@@ -1,13 +1,18 @@
 // Description:
+//  Collects information from the plexpy api and displays in the chatroom.
 //
 // Configuration:
-//
+//  none
 // Commands:
 //  hubot plex latest movies - Shows the latest 10 movies added
 //  hubot plex latest tv - Shows that latest 10 tv episodes added
 //  hubot plex stats - Shows some random stats from the plex server
 //
+// Dependencies:
+//  underscore.js
+//
 // Notes:
+//  Enable API Access in plexpy settings to get an API Key.
 //
 // Author:
 //   Gvnmccld
@@ -16,8 +21,8 @@
 var _ = require('underscore');
 
 // USER VARIABLES
-var plexpyUrl = ''; // eg. http://192.168.1.1:8181
-var apiKey = ''; // Must enable API in plexpy, generated API Key goes here
+var plexpyUrl = 'http://url:port'; // eg. http://192.168.1.1:8181
+var apiKey = '';
 
 var apiUrl = plexpyUrl + '/api/v2?apikey=' + apiKey + '&cmd=';
 
