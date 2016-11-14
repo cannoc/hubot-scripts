@@ -24,6 +24,8 @@ A colletion of hubot scripts I've modified over the last while to make my Rocket
   Shows the commands hubot responds to (based on comments in files)
 ### Mute
   Hubot will shut up in a particular channel
+### PlexPy
+  Collect stats from a plexpy api
 ### Pugme
   Pugs for everyone
 ### Quotes
@@ -35,7 +37,7 @@ A colletion of hubot scripts I've modified over the last while to make my Rocket
 ### Sudo
   Hubot will do whatever you say
 ### Trivia
-  A fully blown trivia game with scoreboards
+  A full blown trivia game with scoreboards
 ### XKCD
   Show an xkcd comic strip
 

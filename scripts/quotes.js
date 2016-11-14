@@ -2,13 +2,13 @@
 //   Add quotes for users or topics
 //
 // Dependencies:
-//   None
+//   Underscore.js
 //
 // Configuration:
 //   None
 //
 // Commands:
-//   hubot quote [<username> | random] - Retrieves a random quote from <username> or random
+//   hubot quote [<username> | random] [search-term] - Retrieves a random quote from <username> or random
 //   hubot quote list (username) - Retrieves all quotes from (username)
 //   hubot quote add <username> <quote> - Adds a <quote> for a <username>
 //   hubot quote remove <username> <quote> - Removes a <quote> for a <username>
@@ -16,6 +16,8 @@
 // Author:
 //   gvnmccld, mannkind
 //
+
+var _ = require('underscore');
 
 var Quotes = (function () {
 
@@ -28,13 +30,26 @@ var Quotes = (function () {
       });
     }
 
-    Quotes.prototype.getRandomUserQuote = function (msg, user) {
-      if(this.quotes[user] && this.quotes[user].length > 0) {
-        return msg.send('"' + this.quotes[user][Math.floor(Math.random()*this.quotes[user].length)] + '" - ' + user);
+    Quotes.prototype.getRandomUserQuote = function (msg, user, term) {
+      var found = "";
+      console.log("Search Term: " + term);
+      if(term) {
+         // We have a term to match on, do some searching
+         var quo = _.shuffle(this.quotes[user]);
+         _.each(quo, function (q) {
+           if(q.toLowerCase().indexOf(term.toLowerCase()) > -1) {
+ 	     return msg.send(q + " - " + user);
+	   }
+         }); 
       } else {
-        return msg.send("I don't have any quotes stored for " + user + ".");
+        // If we didn't have a term to match on, do random
+        if(this.quotes[user] && this.quotes[user].length > 0) {
+          return msg.send('"' + this.quotes[user][Math.floor(Math.random()*this.quotes[user].length)] + '" - ' + user);
+        } else {
+          return msg.send("I don't have any quotes stored for " + user + ".");
+        }
       }
-    };
+    }
 
     Quotes.prototype.getRandomQuote = function (msg) {
       var allQuotes = [];
@@ -111,7 +126,7 @@ var Quotes = (function () {
 
 module.exports = function(robot) {
   var quotes = new Quotes(robot);
-  robot.respond(/quote (?!list|random|add|remove)@?(.*)/i, function (msg) { return quotes.getRandomUserQuote(msg, msg.match[1]); });
+  robot.respond(/quote (?!list|random|add|remove)([^\s]+)\s?(.*)?/i, function (msg) { return quotes.getRandomUserQuote(msg, msg.match[1], msg.match[2]); });
   robot.respond(/quote random/i, function (msg) { return quotes.getRandomQuote(msg) });
   robot.respond(/quote list @?(.*)?/i, function (msg) { return quotes.listQuotes(msg, msg.match[1]); });
   robot.respond(/quote list$/i, function (msg) { return quotes.listUsers(msg); });

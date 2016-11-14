@@ -1,3 +1,23 @@
+// Description:
+//   Forgetful? Add reminders!
+//
+// Dependencies:
+//   "chrono-node": "^0.1.10"
+//   "moment": "^2.8.1"
+//   "lodash": "^2.4.1"
+//
+// Configuration:
+//   None
+//
+// Commands:
+//   hubot remind me (on [date]|in [time]) to <action> - Set a reminder in [time] to do <action>
+//   hubot delete reminder <action> - Delete reminder matching <action> (exact match required)
+//   hubot show reminders
+//
+// Author:
+//   whitman
+//   jtwalters
+
 var Reminder, Reminders, _, chrono, moment, timeoutIds;
 
 _ = require('lodash');
