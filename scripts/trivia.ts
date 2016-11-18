@@ -45,8 +45,8 @@ class ScoreKeeper {
     constructor(public robot) {
       this.cache = {scores:{}, lifetime:{} };
       this.robot.brain.on("loaded", () => {
-          this.cache.scores = this.robot.brain.data.scores;
-          this.cache.lifetime = this.robot.brain.data.lifetime;
+          this.cache.scores = this.robot.brain.data.trivia.scores;
+          this.cache.lifetime = this.robot.brain.data.trivia.lifetime;
       });
     }
 
@@ -58,8 +58,8 @@ class ScoreKeeper {
 
     public saveUser(user) {
 	
-        this.robot.brain.data.scores[user] = this.cache.scores[user];
-        this.robot.brain.data.lifetime[user] = this.cache.lifetime[user];
+        this.robot.brain.data.trivia.scores[user] = this.cache.scores[user];
+        this.robot.brain.data.trivia.lifetime[user] = this.cache.lifetime[user];
         this.robot.brain.emit("save", this.robot.brain.data);
 
         return this.cache.scores[user];
@@ -109,12 +109,12 @@ class ScoreKeeper {
             minutes = "0" + minutes;
         }
 
-        this.robot.brain.data.prevLastReset = this.robot.brain.data.lastReset;
-        this.robot.brain.data.prevScores = this.cache.scores;
+        this.robot.brain.data.trivia.prevLastReset = this.robot.brain.data.trivia.lastReset;
+        this.robot.brain.data.trivia.prevScores = this.cache.scores;
 
-        this.robot.brain.data.lastReset = "Scores last reset by " + user + " on " + (today.getFullYear()) + "-" + (today.getMonth() + 2) + "-" + (today.getDate()) + " " + (today.getHours()) + ":" + minutes;
+        this.robot.brain.data.trivia.lastReset = "Scores last reset by " + user + " on " + (today.getFullYear()) + "-" + (today.getMonth() + 2) + "-" + (today.getDate()) + " " + (today.getHours()) + ":" + minutes;
         this.cache.scores = {};
-        this.robot.brain.data.scores = {};
+        this.robot.brain.data.trivia.scores = {};
         this.robot.brain.emit("save", this.robot.brain.data);
     }
   
@@ -147,8 +147,12 @@ class Game {
 
     constructor(public robot, public scoreKeeper) {
         var buffer = Fs.readFileSync(Path.resolve("./res", "questions.json"));
-        this.questions = JSON.parse(buffer);
-        this.tauntUsers = this.robot.brain.data.tauntUsers || [];
+        
+        this.robot.brain.on("loaded", () => {
+          this.questions = JSON.parse(buffer);
+          this.tauntUsers = this.robot.brain.data.trivia.tauntUsers || [];
+        });
+
     }
 
     public askQuestion(resp) {
@@ -294,7 +298,7 @@ class Game {
         if(lifetime) {
           resp.send("Lifetime Scores:");
         } else {
-          resp.send(this.robot.brain.data.lastReset);
+          resp.send(this.robot.brain.data.trivia.lastReset);
         }
 
         if(topscores.length > 0) {
@@ -320,7 +324,7 @@ class Game {
             this.tauntList(resp);
         }
 
-        this.robot.brain.data.tauntUsers = this.tauntUsers;
+        this.robot.brain.data.trivia.tauntUsers = this.tauntUsers;
         return this.robot.brain.emit("save", this.robot.brain.data);
     }
 

@@ -42,8 +42,8 @@ var ScoreKeeper = (function () {
         this.robot = robot;
         this.cache = { scores: {}, lifetime: {} };
         this.robot.brain.on("loaded", function () {
-            _this.cache.scores = _this.robot.brain.data.scores;
-            _this.cache.lifetime = _this.robot.brain.data.lifetime;
+            _this.cache.scores = _this.robot.brain.data.trivia.scores;
+            _this.cache.lifetime = _this.robot.brain.data.trivia.lifetime;
         });
     }
     ScoreKeeper.prototype.getUser = function (user) {
@@ -52,8 +52,8 @@ var ScoreKeeper = (function () {
         return user;
     };
     ScoreKeeper.prototype.saveUser = function (user) {
-        this.robot.brain.data.scores[user] = this.cache.scores[user];
-        this.robot.brain.data.lifetime[user] = this.cache.lifetime[user];
+        this.robot.brain.data.trivia.scores[user] = this.cache.scores[user];
+        this.robot.brain.data.trivia.lifetime[user] = this.cache.lifetime[user];
         this.robot.brain.emit("save", this.robot.brain.data);
         return this.cache.scores[user];
     };
@@ -98,11 +98,11 @@ var ScoreKeeper = (function () {
         if (minutes < 10) {
             minutes = "0" + minutes;
         }
-        this.robot.brain.data.prevLastReset = this.robot.brain.data.lastReset;
-        this.robot.brain.data.prevScores = this.cache.scores;
-        this.robot.brain.data.lastReset = "Scores last reset by " + user + " on " + (today.getFullYear()) + "-" + (today.getMonth() + 2) + "-" + (today.getDate()) + " " + (today.getHours()) + ":" + minutes;
+        this.robot.brain.data.trivia.prevLastReset = this.robot.brain.data.trivia.lastReset;
+        this.robot.brain.data.trivia.prevScores = this.cache.scores;
+        this.robot.brain.data.trivia.lastReset = "Scores last reset by " + user + " on " + (today.getFullYear()) + "-" + (today.getMonth() + 2) + "-" + (today.getDate()) + " " + (today.getHours()) + ":" + minutes;
         this.cache.scores = {};
-        this.robot.brain.data.scores = {};
+        this.robot.brain.data.trivia.scores = {};
         this.robot.brain.emit("save", this.robot.brain.data);
     };
     ScoreKeeper.prototype.setScore = function (user, score) {
@@ -115,12 +115,15 @@ var ScoreKeeper = (function () {
 }());
 var Game = (function () {
     function Game(robot, scoreKeeper) {
+        var _this = this;
         this.robot = robot;
         this.scoreKeeper = scoreKeeper;
         this.tauntUsers = [];
         var buffer = Fs.readFileSync(Path.resolve("./res", "questions.json"));
-        this.questions = JSON.parse(buffer);
-        this.tauntUsers = this.robot.brain.data.tauntUsers || [];
+        this.robot.brain.on("loaded", function () {
+            _this.questions = JSON.parse(buffer);
+            _this.tauntUsers = _this.robot.brain.data.trivia.tauntUsers || [];
+        });
     }
     Game.prototype.askQuestion = function (resp) {
         if (!this.currentQ) {
@@ -251,7 +254,7 @@ var Game = (function () {
             resp.send("Lifetime Scores:");
         }
         else {
-            resp.send(this.robot.brain.data.lastReset);
+            resp.send(this.robot.brain.data.trivia.lastReset);
         }
         if (topscores.length > 0) {
             _.range(0, topscores.length - 1 + 1).forEach(function (i) { return op.push((i + 1) + ". " + topscores[i].name + ": $" + topscores[i].score.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")); });
@@ -275,7 +278,7 @@ var Game = (function () {
             this.tauntUsers.splice(this.tauntUsers.indexOf(user), 1);
             this.tauntList(resp);
         }
-        this.robot.brain.data.tauntUsers = this.tauntUsers;
+        this.robot.brain.data.trivia.tauntUsers = this.tauntUsers;
         return this.robot.brain.emit("save", this.robot.brain.data);
     };
     Game.prototype.tauntList = function (resp) {
