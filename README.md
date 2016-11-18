@@ -32,8 +32,6 @@ A colletion of hubot scripts I've modified over the last while to make my Rocket
   Endless fun quote database, supports random quotes
 ### Reload
   Hubot will reload his scripts
-### Reminder
-  Hubot will remind you of something later
 ### Sudo
   Hubot will do whatever you say
 ### Trivia
