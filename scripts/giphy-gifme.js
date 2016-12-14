@@ -16,17 +16,16 @@
 
   GIPHY_API_KEY = process.env.HUBOT_GIPHY_API_KEY || 'dc6zaTOxFJmzC';
 
-  CONTENT_RATING_LIMIT = process.env.HUBOT_GIPHY_RATING || 'pg';
+  CONTENT_RATING_LIMIT = process.env.HUBOT_GIPHY_RATING || 'pg-13';
 
   FORCE_HTTPS = (process.env.HUBOT_GIPHY_FORCE_HTTPS === 'true') || false;
 
-  INLINE_IMAGES = (process.env.HUBOT_GIPHY_INLINE_IMAGES === 'true') || false;
+  INLINE_IMAGES = (process.env.HUBOT_GIPHY_INLINE_IMAGES === 'true') || true;
 
 //  DEFAULT_ENDPOINT = process.env.HUBOT_GIPHY_DEFAULT_ENDPOINT || 'random';
   DEFAULT_ENDPOINT = 'search';  
 
-//  RESULTS_LIMIT = process.env.HUBOT_GIPHY_RESULTS_LIMIT || 25;
-  RESULTS_LIMIT = 1;
+  RESULTS_LIMIT = process.env.HUBOT_GIPHY_RESULTS_LIMIT || 50;
 
   ENDPOINT_BASE_URL = "http://api.giphy.com/v1/gifs";
 

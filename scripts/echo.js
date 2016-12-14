@@ -19,8 +19,7 @@ module.exports = function(robot) {
   robot.respond(/echoto (.*?) (.*)/i, function(msg) {
      var room = msg.match[1];
      var text = msg.match[2];
-
-     return robot.adapter.chatdriver.getRoomId(room)
+     robot.adapter.chatdriver.getRoomId(room)
             .then(function (rid) {
 	        msg.message.user.room = rid;
                 var tm = new TextMessage(msg.message.user, robot.name + ": echo " + text);
@@ -28,14 +27,15 @@ module.exports = function(robot) {
             })
             .catch(function (err) {
                 msg.send("I can't find the room: " + room);
-            });     
+            });    
+        msg.finish(); 
       });
 
   robot.respond(/commandto (.*?) (.*)/i, function(msg) {
      var room = msg.match[1];
      var text = msg.match[2];
-
-     return robot.adapter.chatdriver.getRoomId(room)
+     console.log('commanding to');
+     robot.adapter.chatdriver.getRoomId(room)
         .then(function (rid) {
             msg.message.user.room = rid;
             var tm = new TextMessage(msg.message.user, robot.name + ": " + text);
@@ -44,11 +44,12 @@ module.exports = function(robot) {
         .catch(function (err) {
             msg.send("I can't find the room: " + room);
         });
+     msg.finish();
   });   
 
   robot.respond(/echo (.*)/i, function(msg) {
-    console.log(msg.message.user);
-    return msg.send(msg.match[1]);
+    msg.send(msg.match[1]);
+    return msg.finish();
   });
 
 };

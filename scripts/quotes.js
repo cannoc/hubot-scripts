@@ -27,6 +27,7 @@ var Quotes = (function () {
       this.quotes = {};
       this.robot.brain.on("loaded", function () {
         _this.quotes = _this.robot.brain.data.quotes;
+        delete _this.quotes.testuser;
       });
     }
 
